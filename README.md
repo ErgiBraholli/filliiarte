@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# Filli i Artë – Candle & Dried Flower Studio (Frontend Website)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A clean, elegant, informational-only one-page website built for **Filli i Artë**, a handmade candle and dried flower composition studio.  
+The site is designed to feel warm, minimal, and premium — suitable for a candle brand — and is ready for deployment.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- One-page layout with smooth scrolling
+- Sticky navigation bar with active section highlight
+- Warm, light, candle-friendly colour palette
+- Hero section with clear call-to-actions
+- About section describing the brand philosophy
+- Products & services cards
+- Image gallery (local images from `src/assets`)
+- Delivery & ordering information (no checkout)
+- Contact section with Instagram / WhatsApp / Email
+- Fully responsive (mobile, tablet, desktop)
+- No backend – frontend only
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+- React (Create React App)
+- CSS (vanilla) – no frameworks
+- JavaScript (ES6+)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+src/  
+├── assets/  
+│ ├── image1.jpeg  
+│ ├── image2.jpeg  
+│ └── ...  
+│  
+├── components/  
+│ ├── Navbar.jsx  
+│ ├── HomeBanner.jsx  
+│ ├── About.jsx  
+│ ├── Products.jsx  
+│ ├── Gallery.jsx  
+│ ├── Info.jsx  
+│ ├── Contact.jsx  
+│ └── Footer.jsx  
+│  
+├── App.js  
+├── index.js  
+├── index.css  
+└── setupTests.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Gallery Images
 
-### `npm run eject`
+Gallery images are loaded locally from:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+src/assets/
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Images are imported directly inside `Gallery.jsx`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To change images:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Replace files inside `src/assets/`
+2. Keep filenames the same **or**
+3. Update imports in `Gallery.jsx`
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Ordering & Delivery
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This website is **informational only**.
 
-### Code Splitting
+- No cart
+- No checkout
+- No payments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Orders are handled via:
 
-### Analyzing the Bundle Size
+- Instagram direct messages
+- WhatsApp messages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Delivery:
 
-### Making a Progressive Web App
+- Available across Albania
+- Free postal delivery inside Albania
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## Running the Project Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+npm install  
+npm start
 
-### Deployment
+The app will run at:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+http://localhost:3000
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Deployment
+
+This project is ready to deploy on:
+
+- Vercel
+- Netlify
+- GitHub Pages
+
+Build command:
+
+npm run build
+
+---
+
+## Design Philosophy
+
+- Warm, light colours inspired by candles and natural materials
+- Minimalist layout to keep focus on the products
+- Soft gradients and subtle shadows for a premium feel
+- Clear typography and spacing for readability
+
+---
+
+## External Links
+
+- Instagram: https://www.instagram.com/filliiarte/
+
+---
+
+## Notes
+
+- This site is intended as a **brand presence**, not an e-commerce platform
+- All content can be updated directly in React components
+- No backend or database is required
+
+---
+
+## © License
+
+This project was created for **Filli i Artë** and is intended for informational and promotional use only.
