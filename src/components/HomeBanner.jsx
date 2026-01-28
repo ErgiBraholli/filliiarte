@@ -14,8 +14,8 @@ const HomeBanner = () => {
         <div className="heroLeft">
           <p className="pill">Handmade • 100% Dyll Soje</p>
           <h1 className="heroTitle">
-            Kompozime me <span className="gradText">qirinj</span> &{" "}
-            <span className="gradText">lule të thata</span>
+            Kompozime me <span className="gradText">QIRINJ</span> &{" "}
+            <span className="gradText">LULE TË THATA</span>
           </h1>
           <p className="heroSub">
             Dhurata elegante dhe minimaliste — të personalizuara sipas stilit,
@@ -36,15 +36,12 @@ const HomeBanner = () => {
 
           <div className="trustRow">
             <div className="trustItem">
-              <span className="trustDot" />
               <span>Qirinj 100% dyll soje</span>
             </div>
             <div className="trustItem">
-              <span className="trustDot" />
               <span>Punim me dorë</span>
             </div>
             <div className="trustItem">
-              <span className="trustDot" />
               <span>Dërgesa në gjithë Shqipërinë</span>
             </div>
           </div>
