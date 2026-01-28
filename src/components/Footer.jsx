@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.jpeg";
+import logo from "../assets/filliiarte-logo-circle.png";
 
 const Footer = () => {
   return (
@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container footerInner">
         <div className="footerBrand">
           <span className="brandMark sm" aria-hidden="true">
-            <img src={logo} alt="filli i arte logo" style={{ width: 30 }} />
+            <img src={logo} className="brandLogo" alt="filli i arte logo" />
           </span>
           <div>
             <div className="footerName">FilliiArtë</div>

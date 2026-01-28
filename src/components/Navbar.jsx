@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assets/logo.jpeg";
+import logo from "../assets/filliiarte-logo-circle.png";
 
 const NAV = [
   { label: "Kreu", href: "#home" },
@@ -54,7 +54,7 @@ const Navbar = () => {
           aria-label="Go home"
         >
           <span className="brandMark" aria-hidden="true">
-            <img src={logo} alt="filli i arte logo" style={{ width: 30 }} />
+            <img src={logo} className="brandLogo" alt="filli i arte logo" />
           </span>
           <span className="brandText">
             <span className="brandName">Filli i Artë</span>
