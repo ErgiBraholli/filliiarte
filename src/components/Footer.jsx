@@ -10,7 +10,7 @@ const Footer = () => {
             <img src={logo} className="brandLogo" alt="filli i arte logo" />
           </span>
           <div>
-            <div className="footerName">FilliiArtë</div>
+            <div className="footerName">Filli i Artë</div>
             <div className="muted small">
               Qirinj soje • Lule të thata • Handmade
             </div>
