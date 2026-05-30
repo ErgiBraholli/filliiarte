@@ -1,57 +1,80 @@
 import React from "react";
+import { motion } from "framer-motion";
+import Reveal from "./motion/Reveal";
+import RevealText from "./motion/RevealText";
+import { fadeRise, stagger, inView } from "../lib/motion";
+import "./Info.css";
+
+const STEPS = [
+  {
+    n: "01",
+    t: "Zgjidh",
+    d: "Shfleto galerinë ose Instagram-in dhe gjej kompozimin që të flet.",
+  },
+  {
+    n: "02",
+    t: "Personalizo",
+    d: "Na shkruaj ngjyrën, emrin, datën dhe rastin — e përshtatim për ty.",
+  },
+  {
+    n: "03",
+    t: "Merr",
+    d: "E modelojmë me dorë, e paketojmë me kujdes dhe e nisim kudo në Shqipëri.",
+  },
+];
+
+const FACTS = [
+  ["Dërgesa", "Në gjithë Shqipërinë"],
+  ["Posta", "Brenda vendit · falas"],
+  ["Paketimi", "I sigurt për transport"],
+  ["Personalizimi", "Emër · ngjyra · mesazh"],
+];
 
 const Info = () => {
   return (
-    <section id="info" className="section">
+    <section id="info" className="section info">
       <div className="container">
-        <div className="sectionHead">
-          <h2 className="sectionTitle">Dërgesa & Porositë</h2>
-          <p className="sectionSub">
-            Faqja është vetëm informuese — porositë bëhen me mesazh.
-          </p>
+        <div className="sectionMark">
+          <span className="sectionMark__num">04</span>
+          <span className="eyebrow">Porosia</span>
         </div>
 
-        <div className="infoGrid">
-          <div className="card">
-            <h3 className="cardTitle">Dërgesa</h3>
-            <ul className="list">
-              <li>Dërgesa në gjithë Shqipërinë</li>
-              <li>Posta brenda Shqipërisë: falas</li>
-              <li>Paketim i sigurt për transport</li>
-            </ul>
-            <p className="muted small">
-              (Nëse do, mund të shtosh afatet tipike të dërgesës këtu.)
-            </p>
-          </div>
+        <div className="info__head">
+          <RevealText
+            as="h2"
+            className="display info__title"
+            lines={["Si lind një", "kompozim"]}
+          />
+          <Reveal as="p" className="lede info__intro" delay={0.1}>
+            Faqja është informuese — porositë i pranojmë me mesazh, që çdo detaj
+            ta bisedojmë bashkë.
+          </Reveal>
+        </div>
 
-          <div className="card">
-            <h3 className="cardTitle">Si porosit?</h3>
-            <ol className="steps stepsLight">
-              <li>Zgjidh një model nga galeria</li>
-              <li>Na shkruaj në Instagram/WhatsApp me detajet</li>
-              <li>Konfirmo porosinë dhe dërgesën</li>
-            </ol>
-            <div className="btnRow">
-              <a
-                className="btn"
-                href="https://www.instagram.com/filliiarte/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Instagram
-              </a>
-              <a
-                className="btn btnGhost"
-                href="https://wa.me/355000000000"
-                target="_blank"
-                rel="noreferrer"
-                title="Zëvendëso numrin me numrin real"
-              >
-                WhatsApp
-              </a>
+        <motion.ol
+          className="info__steps"
+          variants={stagger(0.14)}
+          initial="hidden"
+          whileInView="show"
+          viewport={inView}
+        >
+          {STEPS.map((s) => (
+            <motion.li key={s.n} className="info__step" variants={fadeRise}>
+              <span className="info__stepNum display">{s.n}</span>
+              <h3 className="info__stepTitle">{s.t}</h3>
+              <p className="info__stepText muted">{s.d}</p>
+            </motion.li>
+          ))}
+        </motion.ol>
+
+        <Reveal className="info__facts">
+          {FACTS.map(([k, v]) => (
+            <div className="info__fact" key={k}>
+              <span className="info__factKey">{k}</span>
+              <span className="info__factVal">{v}</span>
             </div>
-          </div>
-        </div>
+          ))}
+        </Reveal>
       </div>
     </section>
   );

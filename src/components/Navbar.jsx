@@ -1,100 +1,174 @@
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/filliiarte-logo-circle.png";
+import { scrollToId } from "./SmoothScroll";
+import { EASE } from "../lib/motion";
+import "./Navbar.css";
 
 const NAV = [
-  { label: "Kreu", href: "#home" },
-  { label: "Rreth Nesh", href: "#about" },
-  { label: "Produktet", href: "#products" },
-  { label: "Galeria", href: "#gallery" },
-  { label: "Dërgesa", href: "#info" },
-  { label: "Kontakt", href: "#contact" },
+  { label: "Kreu", id: "home" },
+  { label: "Historia", id: "about" },
+  { label: "Koleksioni", id: "products" },
+  { label: "Galeria", id: "gallery" },
+  { label: "Porosia", id: "info" },
+  { label: "Kontakt", id: "contact" },
 ];
 
+const IG = "https://www.instagram.com/filliiarte/";
+
 const Navbar = () => {
-  const [active, setActive] = useState("#home");
+  const [active, setActive] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
+  /* Active section highlighting */
   useEffect(() => {
-    const ids = NAV.map((n) => n.href.replace("#", ""));
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-
+    const sections = NAV.map((n) => document.getElementById(n.id)).filter(
+      Boolean
+    );
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target?.id) setActive(`#${visible.target.id}`);
+        if (visible?.target?.id) setActive(visible.target.id);
       },
-      { rootMargin: "-40% 0px -55% 0px", threshold: [0.1, 0.2, 0.35, 0.5] }
+      { rootMargin: "-45% 0px -50% 0px", threshold: [0.1, 0.25, 0.5] }
     );
-
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, []);
 
-  const onNavClick = (href) => {
-    setActive(href);
+  /* Solid-on-scroll + hide-on-scroll-down */
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 80);
+      setHidden(y > 600 && y > last && !open);
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
+
+  /* Lock body scroll while the mobile menu is open */
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const go = (id) => {
     setOpen(false);
-
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    // allow the overlay to start closing before the scroll begins
+    setTimeout(() => scrollToId(id), open ? 480 : 0);
   };
 
   return (
-    <header className="navWrap">
-      <nav className="nav container">
-        <button
-          className="brand"
-          onClick={() => onNavClick("#home")}
-          aria-label="Go home"
-        >
-          <span className="brandMark" aria-hidden="true">
-            <img src={logo} className="brandLogo" alt="filli i arte logo" />
-          </span>
-          <span className="brandText">
-            <span className="brandName">Filli i Artë</span>
-            <span className="brandTag">Qirinj soje & lule të thata</span>
-          </span>
-        </button>
-
-        <div className={`navLinks ${open ? "isOpen" : ""}`}>
-          {NAV.map((item) => (
-            <button
-              key={item.href}
-              className={`navLink ${active === item.href ? "isActive" : ""}`}
-              onClick={() => onNavClick(item.href)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="navActions">
-          <a
-            className="btn btnGhost"
-            href="https://www.instagram.com/filliiarte/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Instagram
-          </a>
-
-          <button
-            className="btnIcon navBurger"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-          >
-            <span className="burger" aria-hidden="true" />
+    <>
+      <motion.header
+        className={`navWrap ${scrolled ? "is-scrolled" : ""} ${
+          open ? "is-menu" : ""
+        }`}
+        initial={{ y: 0 }}
+        animate={{ y: hidden ? "-110%" : "0%" }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
+        <div className="container nav">
+          <button className="navBrand" onClick={() => go("home")}>
+            <span className="navBrand__mark">
+              <img src={logo} alt="" aria-hidden="true" />
+            </span>
+            <span className="navBrand__text">
+              <span className="navBrand__name">Filli i Artë</span>
+              <span className="navBrand__tag">Studio Artizanale</span>
+            </span>
           </button>
+
+          <nav className="navLinks" aria-label="Primare">
+            {NAV.map((item) => (
+              <button
+                key={item.id}
+                className={`navLink ${active === item.id ? "is-active" : ""}`}
+                onClick={() => go(item.id)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          <div className="navRight">
+            <a
+              className="linkUnderline navIg"
+              href={IG}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
+            <button
+              className={`navToggle ${open ? "is-open" : ""}`}
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? "Mbyll menunë" : "Hap menunë"}
+              aria-expanded={open}
+            >
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
-      </nav>
-    </header>
+      </motion.header>
+
+      {/* Fullscreen editorial mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="navOverlay"
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.8, ease: EASE }}
+          >
+            <div className="navOverlay__inner container">
+              <span className="eyebrow eyebrow--light">Menu</span>
+              <nav className="navOverlay__links">
+                {NAV.map((item, i) => (
+                  <motion.button
+                    key={item.id}
+                    className="navOverlay__link display"
+                    onClick={() => go(item.id)}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{
+                      duration: 0.7,
+                      ease: EASE,
+                      delay: 0.2 + i * 0.07,
+                    }}
+                  >
+                    <span className="navOverlay__idx">
+                      0{i + 1}
+                    </span>
+                    {item.label}
+                  </motion.button>
+                ))}
+              </nav>
+              <a
+                className="linkUnderline navOverlay__ig"
+                href={IG}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Na ndiq në Instagram
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

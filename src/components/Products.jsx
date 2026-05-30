@@ -1,75 +1,82 @@
 import React from "react";
+import { motion } from "framer-motion";
+import Reveal from "./motion/Reveal";
+import RevealText from "./motion/RevealText";
+import { scrollToId } from "./SmoothScroll";
+import { fadeRise, stagger, inView } from "../lib/motion";
+import "./Products.css";
 
 const ITEMS = [
   {
-    title: "Kompozime me qirinj & lule të thata",
-    desc: "Kompozime dekorative, ideale për dhuratë ose ambient.",
-    icon: "🕯️",
+    title: "Kompozime me qirinj & lule",
+    desc: "Buqeta të qëndrueshme nga dylli i sojës, të shoqëruara me lule të thata.",
   },
   {
-    title: "Kuti dhuratë (Box sets)",
-    desc: "Sete elegante me përzgjedhje qirinjsh dhe elemente dekorative.",
-    icon: "🎁",
+    title: "Kuti dhuratë",
+    desc: "Sete elegante të paketuara me kujdes, gati për t’u dhuruar.",
   },
   {
-    title: "Qirinj dekorativë (Soy wax)",
-    desc: "Forma moderne, aromë e lehtë (opsionale) dhe përfundim premium.",
-    icon: "✨",
+    title: "Qirinj dekorativë soje",
+    desc: "Forma skulpturore — trëndafila, zemra, lule — me përfundim premium.",
   },
   {
-    title: "Personalizim emri / ngjyra",
-    desc: "Përshtatje sipas preferencave: emër, paletë ngjyrash, mesazh.",
-    icon: "🖋️",
+    title: "Personalizim",
+    desc: "Emër, paletë ngjyrash dhe mesazh, sipas rastit dhe stilit tënd.",
   },
   {
-    title: "Sezonale",
-    desc: "Modele për Shën Valentin, Krishtlindje dhe koleksione të veçanta.",
-    icon: "❄️",
+    title: "Koleksione sezonale",
+    desc: "Shën Valentin, Krishtlindje dhe edicione të limituara.",
   },
   {
-    title: "Evente",
-    desc: "Kompozime për ditëlindje, fejesa, ceremoni dhe surpriza.",
-    icon: "🎉",
+    title: "Evente & ceremoni",
+    desc: "Ditëlindje, fejesa dhe surpriza — kompozime që mbahen mend.",
   },
 ];
 
 const Products = () => {
   return (
-    <section id="products" className="section">
+    <section id="products" className="section section--dark products">
       <div className="container">
-        <div className="sectionHead">
-          <h2 className="sectionTitle">Produktet & Shërbimet</h2>
-          <p className="sectionSub">
-            Zgjidh një stil, ne e bëjmë realitet — minimal, elegant, i pastër.
-          </p>
+        <div className="sectionMark">
+          <span className="sectionMark__num">02</span>
+          <span className="eyebrow eyebrow--light">Koleksioni</span>
         </div>
 
-        <div className="grid3">
-          {ITEMS.map((it) => (
-            <div className="card" key={it.title}>
-              <div className="cardIcon" aria-hidden="true">
-                {it.icon}
-              </div>
-              <h3 className="cardTitle">{it.title}</h3>
-              <p className="muted">{it.desc}</p>
-            </div>
+        <div className="products__head">
+          <RevealText
+            as="h2"
+            className="display products__title"
+            lines={["Çfarë krijojmë"]}
+          />
+          <Reveal as="p" className="lede products__intro muted-light" delay={0.1}>
+            Gjashtë mënyra për ta thënë “të mendoj” — secila e modeluar me dorë,
+            secila e personalizueshme.
+          </Reveal>
+        </div>
+
+        <motion.ul
+          className="products__list"
+          variants={stagger(0.08)}
+          initial="hidden"
+          whileInView="show"
+          viewport={inView}
+        >
+          {ITEMS.map((item, i) => (
+            <motion.li key={item.title} variants={fadeRise}>
+              <button
+                className="products__row"
+                onClick={() => scrollToId("gallery")}
+              >
+                <span className="products__index">0{i + 1}</span>
+                <span className="products__name display">{item.title}</span>
+                <span className="products__desc">{item.desc}</span>
+                <span className="products__arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </button>
+            </motion.li>
           ))}
-        </div>
-
-        <div className="ctaStrip">
-          <div>
-            <h3 className="ctaTitle">Do më shumë foto?</h3>
-            <p className="muted">Shiko gjithë punimet në Instagram.</p>
-          </div>
-          <a
-            className="btn"
-            href="https://www.instagram.com/filliiarte/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Hap Instagram
-          </a>
-        </div>
+        </motion.ul>
       </div>
     </section>
   );

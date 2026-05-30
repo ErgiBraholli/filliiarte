@@ -1,4 +1,7 @@
 import React from "react";
+import SmoothScroll from "./components/SmoothScroll";
+import Atmosphere from "./components/Atmosphere";
+import Preloader from "./components/Preloader";
 import Navbar from "./components/Navbar";
 import HomeBanner from "./components/HomeBanner";
 import About from "./components/About";
@@ -10,7 +13,10 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="app">
+    <SmoothScroll>
+      <Preloader />
+      <Atmosphere />
+
       <Navbar />
       <main>
         <HomeBanner />
@@ -21,7 +27,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
-    </div>
+    </SmoothScroll>
   );
 }
 

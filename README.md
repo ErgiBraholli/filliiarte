@@ -1,30 +1,38 @@
 # Filli i Artë – Candle & Dried Flower Studio (Frontend Website)
 
-A clean, elegant, informational-only one-page website built for **Filli i Artë**, a handmade candle and dried flower composition studio.  
-The site is designed to feel warm, minimal, and premium — suitable for a candle brand — and is ready for deployment.
+A cinematic, editorial, informational-only one-page website for **Filli i Artë**,
+a handmade soy-wax candle and dried-flower composition studio.  
+The experience is designed to feel like a boutique studio: warm ivory and wax-cream
+tones, muted gold accents, oversized serif headlines, atmospheric film grain, and
+slow, intentional motion — premium and ready for deployment.
 
 ---
 
 ## Features
 
-- One-page layout with smooth scrolling
-- Sticky navigation bar with active section highlight
-- Warm, light, candle-friendly colour palette
-- Hero section with clear call-to-actions
-- About section describing the brand philosophy
-- Products & services cards
-- Image gallery (local images from `src/assets`)
-- Delivery & ordering information (no checkout)
-- Contact section with Instagram / WhatsApp / Email
-- Fully responsive (mobile, tablet, desktop)
+- Full-viewport **cinematic hero** with looping background video, layered scrims,
+  floating ambient light, parallax, and a line-by-line headline reveal
+- **Lenis** inertial smooth scrolling with anchor navigation
+- Transparent → solid **navbar** with an elegant fullscreen mobile menu
+- Editorial **manifesto** (About), a lookbook-style **collection index** with a
+  cursor-following image preview, and a numbered **ordering flow**
+- **Gallery** with parallax columns, cinematic hover zoom, and a fullscreen lightbox
+  (keyboard + arrow navigation)
+- Atmospheric layer: film grain, vignette, ambient gradients, subtle custom cursor
+- A reusable motion system (`Reveal`, `RevealText`, `MagneticButton`) on a single
+  signature easing — `cubic-bezier(.22, 1, .36, 1)`
+- Fully responsive and mobile-first; honours `prefers-reduced-motion` throughout
 - No backend – frontend only
 
 ---
 
 ## Tech Stack
 
-- React (Create React App)
-- CSS (vanilla) – no frameworks
+- React 19 (Create React App)
+- [Framer Motion](https://www.framer.com/motion/) — animation & scroll-linked motion
+- [Lenis](https://lenis.darkroom.engineering/) — smooth scrolling
+- CSS (vanilla, design-token driven) — co-located per-component stylesheets
+- Type: Cormorant Garamond (display serif) + Jost (sans), via Google Fonts
 - JavaScript (ES6+)
 
 ---
@@ -33,23 +41,35 @@ The site is designed to feel warm, minimal, and premium — suitable for a candl
 
 src/  
 ├── assets/  
-│ ├── image1.jpeg  
-│ ├── image2.jpeg  
-│ └── ...  
+│ ├── filliart.mp4          # hero background video  
+│ ├── image1.jpeg … image9.jpeg  
+│ └── filliiarte-logo-circle.png  
+│  
+├── lib/  
+│ └── motion.js             # shared easing + animation variants  
 │  
 ├── components/  
-│ ├── Navbar.jsx  
-│ ├── HomeBanner.jsx  
-│ ├── About.jsx  
-│ ├── Products.jsx  
-│ ├── Gallery.jsx  
-│ ├── Info.jsx  
-│ ├── Contact.jsx  
-│ └── Footer.jsx  
+│ ├── motion/               # reusable motion primitives  
+│ │ ├── Reveal.jsx          # fade + rise + blur on scroll into view  
+│ │ ├── RevealText.jsx      # line-by-line heading reveal  
+│ │ └── MagneticButton.jsx  # cursor-magnetic button  
+│ │  
+│ ├── SmoothScroll.jsx      # Lenis provider + scrollToId()  
+│ ├── Atmosphere.jsx        # fixed film grain + vignette overlay  
+│ ├── Cursor.jsx            # subtle ambient custom cursor  
+│ ├── Preloader.jsx         # cinematic intro  
+│ ├── Navbar.jsx            # + Navbar.css  
+│ ├── HomeBanner.jsx        # hero  + Hero.css  
+│ ├── About.jsx             # manifesto + About.css  
+│ ├── Products.jsx          # collection index + Products.css  
+│ ├── Gallery.jsx           # parallax gallery + lightbox + Gallery.css  
+│ ├── Info.jsx              # ordering flow + Info.css  
+│ ├── Contact.jsx           # + Contact.css  
+│ └── Footer.jsx            # + Footer.css  
 │  
 ├── App.js  
 ├── index.js  
-├── index.css  
+├── index.css                # design tokens, base, utilities, atmosphere  
 └── setupTests.js
 
 ---
@@ -117,10 +137,20 @@ npm run build
 
 ## Design Philosophy
 
-- Warm, light colours inspired by candles and natural materials
-- Minimalist layout to keep focus on the products
-- Soft gradients and subtle shadows for a premium feel
-- Clear typography and spacing for readability
+- Cinematic, editorial, handcrafted — a boutique studio, not a SaaS landing page
+- Warm ivory / wax cream / champagne blush / muted gold / soft charcoal palette
+- Oversized serif headlines, generous whitespace, asymmetrical editorial layouts
+- Atmospheric depth: film grain, vignette, ambient light, subtle parallax
+- Motion that is slow, intentional and restrained — one signature easing curve
+- Accessible by default: semantic markup, keyboard-navigable lightbox/menu, and
+  full `prefers-reduced-motion` support
+
+## Hero Video
+
+The looping hero video lives at `src/assets/filliart.mp4` and is imported directly
+in `HomeBanner.jsx`. It autoplays muted, loops, and plays inline, with `image2.jpeg`
+as the poster fallback. To swap it, replace the file (keep the name) or update the
+import.
 
 ---
 
