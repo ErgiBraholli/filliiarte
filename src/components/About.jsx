@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import Reveal from "./motion/Reveal";
 import RevealText from "./motion/RevealText";
 import { fadeRise, stagger, inView } from "../lib/motion";
-import aboutImg from "../assets/image6.jpeg";
+import aboutImg from "../assets/image1.jpeg";
 import "./About.css";
 
 const PRINCIPLES = [
